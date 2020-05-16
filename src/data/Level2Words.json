@@ -1,0 +1,42 @@
+[
+    { 
+        "word" : "Beamer",
+        "correct" :1
+    },  
+    { 
+        "word" : "Adresse",
+        "correct" :2
+    },   
+    { 
+        "word" : "Alphabet",
+        "correct" :3
+    },  
+    { 
+        "word" : "Sprache",
+        "correct" :2
+    },   
+    { 
+        "word" : "Stift",
+        "correct" : 1
+    },  
+    { 
+        "word" : "Anmeldung",
+        "correct" :2
+    },   
+     { 
+        "word" : "Artzt",
+        "correct" :1
+    },  
+    { 
+        "word" : "Geld",
+        "correct" :3
+    },    
+    { 
+       "word" : "Friseur",
+       "correct" :1
+   },  
+    { 
+        "word" : "Kuli",
+        "correct" : 1
+    }    
+    ]
