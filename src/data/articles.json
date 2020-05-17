@@ -1,14 +1,16 @@
 [
-    { 
-        "word" : "Beamer",
-        "correct" :1
-    },  
-    { 
-        "word" : "Adresse",
-        "correct" :2
-    },   
-    { 
-        "word" : "Alphabet",
-        "correct" :3
+  [
+    {
+      "word": "Beamer",
+      "correct": 1
+    },
+    {
+      "word": "Adresse",
+      "correct": 2
+    },
+    {
+      "word": "Alphabet",
+      "correct": 3
     }
+  ]
 ]

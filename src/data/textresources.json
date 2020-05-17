@@ -101,5 +101,10 @@
     "de": "Alle ergebnisse werden dabei gelöscht und der zustand kann nicht wieder geherstellt werden, Löschen?",
     "en": "All Results will be deleted and you can not rollback this action, continue?",
     "sq": "Të gjitha rezultatet do të fshihen nga lista dhe nuk mund të kthehen, vazhdo?"
+  },
+  "CongratulationText": {
+    "de": "Geschaft!!",
+    "en": "Congratulation!",
+    "sq": "Urime!!"
   }
 }

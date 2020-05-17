@@ -7,11 +7,8 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup"
 function ArticleSelector(props) {
   const { getResourceText } = useContext(LanguageContext)
 
-  const [articleValue, setArticleValue] = React.useState()
-
   const handleValueChange = (event, articleVal) => {
     props.setAnswer({ articleId: articleVal, indexValue: props.index })
-    setArticleValue(props.articleId)
   }
 
   return (

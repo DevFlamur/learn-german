@@ -13,17 +13,30 @@ import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup"
 
+import { QuizSessionContext } from "../context/QuizSessionContext"
+
 function ChapterElement(props) {
   const { getResourceText } = useContext(LanguageContext)
 
-  const [chapter, setChapter] = React.useState(null)
+  const { setCurrentQuizSettings, getCurrentSettings } = useContext(
+    QuizSessionContext
+  )
 
   const handleChange = (event, newChapter) => {
-    setChapter(newChapter)
+    const source = require("../data/articles/allchapters.json")
+
+    const settings = {
+      words: source,
+      chapter: newChapter,
+    }
+
+    setCurrentQuizSettings(settings)
+    //setWordsSource("../data/articles/allchapters.json")
   }
 
   const handleNavigation = () => {
-    if (chapter !== null) navigate(props.goto, { state: { chapter: chapter } })
+    if (getCurrentSettings().chapter !== null)
+      navigate(props.goto, { state: { chapter: getCurrentSettings().chapter } })
   }
 
   return (
@@ -38,7 +51,7 @@ function ChapterElement(props) {
         <Grid item>
           <ToggleButtonGroup
             style={{ display: "block" }}
-            value={chapter}
+            value={getCurrentSettings().chapter}
             exclusive
             size="large"
             onChange={handleChange}

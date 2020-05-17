@@ -149,7 +149,7 @@ const MenuItems = ({ children }) => {
             {[
               {
                 text: getResourceText("DerDieDasTitle"),
-                gotopage: "/quiz/",
+                gotopage: "/quizPage/",
                 titleKey: "DerDieDasTitle",
                 sublineKey: "DerDieDasSubline",
               },
@@ -167,7 +167,7 @@ const MenuItems = ({ children }) => {
               },
               {
                 text: getResourceText("NumbersTitle"),
-                gotopage: "/quiz/",
+                gotopage: "/quizPage/",
                 titleKey: "NumbersTitle",
                 sublineKey: "NumbersSubline",
               },
