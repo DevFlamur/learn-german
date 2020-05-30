@@ -8,9 +8,45 @@ export default (state, action) => {
         ...state,
         language: action.payload,
       }
+    case "APPLICATION_SYNC_AUTH":
+      let authentication = {
+        isAuthenticated: state.authentication.isAuthenticated,
+        email: state.authentication.email,
+      }
 
+      if (typeof window !== "undefined" && window.localStorage) {
+        authentication = JSON.parse(localStorage.getItem("authInfo"))
+      }
+
+      if (authentication !== null) {
+        try {
+          state.authentication = JSON.parse(state.authentication)
+        } catch (error) {}
+        state.authentication.isAuthenticated = authentication.isAuthenticated
+        state.authentication.email = authentication.email
+      }
+      return state
     case "APPLICATION_GET_RESOURCE_TEXT":
       return state
+    case "APPLICATION_SIGN_IN":
+      state.authentication.isAuthenticated = true
+      state.authentication.email = action.payload
+
+      if (typeof window !== "undefined" && window.localStorage) {
+        localStorage.setItem("authInfo", JSON.stringify(state.authentication))
+      }
+
+      return state
+    case "APPLICATION_SIGN_OUT":
+      state.authentication.isAuthenticated = false
+      state.authentication.email = null
+      if (typeof window !== "undefined" && window.localStorage) {
+        localStorage.setItem("authInfo", JSON.stringify(state.authentication))
+      }
+      return {
+        ...state,
+        state,
+      }
 
     case "QUIZSESSION_SET_CURRENT_QUIZ_SETTINGS":
       var newState = { ...state, currentSettings: action.payload }

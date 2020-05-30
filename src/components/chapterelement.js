@@ -26,7 +26,7 @@ function ChapterElement(props) {
     const source = require("../data/articles/allchapters.json")
 
     const settings = {
-      words: source,
+      words: source[newChapter],
       chapter: newChapter,
     }
 

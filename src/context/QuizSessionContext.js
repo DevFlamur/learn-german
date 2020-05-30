@@ -2,22 +2,6 @@ import React, { createContext, useReducer, useState } from "react"
 import AppReducer from "./AppReducer"
 import { navigate } from "gatsby"
 
-var defaultLanguage = "de"
-var isAuthenticated = false
-if (typeof window !== "undefined" && window.localStorage) {
-  defaultLanguage = localStorage.getItem("lng")
-  if (defaultLanguage === undefined || defaultLanguage === null) {
-    defaultLanguage = "de"
-    localStorage.setItem("lng", "de")
-  }
-
-  isAuthenticated = localStorage.getItem("isAuthenticated")
-  if (isAuthenticated === undefined || isAuthenticated === null) {
-    isAuthenticated = false
-    localStorage.setItem("isAuthenticated", false)
-  }
-}
-
 var quizSessionStore = undefined
 var currentSettingsStore = undefined
 if (typeof window !== "undefined" && window.localStorage) {
@@ -119,15 +103,11 @@ export const QuizSessionProvider = ({ children }) => {
         answered:
           getArticleText(answer) +
           " " +
-          state.currentSettings.words[state.currentSettings.chapter][
-            currentAnswer.index
-          ].word,
+          state.currentSettings.words[currentAnswer.index].word,
         correct:
           getArticleText(answerCorrect) +
           " " +
-          state.currentSettings.words[state.currentSettings.chapter][
-            currentAnswer.index
-          ].word,
+          state.currentSettings.words[currentAnswer.index].word,
         isCorrect: true,
         questionIndex: currentAnswer.index,
       })
@@ -144,24 +124,18 @@ export const QuizSessionProvider = ({ children }) => {
       setIsWrongText(
         articleText +
           " " +
-          state.currentSettings.words[state.currentSettings.chapter][
-            currentAnswer.index
-          ].word
+          state.currentSettings.words[currentAnswer.index].word
       )
       if (!wasWrongBefore) {
         aq.push({
           answered:
             getArticleText(answer) +
             " " +
-            state.currentSettings.words[state.currentSettings.chapter][
-              currentAnswer.index
-            ].word,
+            state.currentSettings.words[currentAnswer.index].word,
           correct:
             getArticleText(answerCorrect) +
             " " +
-            state.currentSettings.words[state.currentSettings.chapter][
-              currentAnswer.index
-            ].word,
+            state.currentSettings.words[currentAnswer.index].word,
           isCorrect: false,
           questionIndex: currentAnswer.index,
         })
@@ -171,13 +145,9 @@ export const QuizSessionProvider = ({ children }) => {
       return
     } else if (answer === answerCorrect && wasWrongBefore) {
     }
-    var number = getRandomInt(
-      0,
-      state.currentSettings.words[state.currentSettings.chapter].length
-    )
+    var number = getRandomInt(0, state.currentSettings.words.length)
     if (
-      displayedWords.length <
-        state.currentSettings.words[state.currentSettings.chapter].length &&
+      displayedWords.length < state.currentSettings.words.length &&
       number !== -1
     )
       currentAnswer.index = number
@@ -189,15 +159,11 @@ export const QuizSessionProvider = ({ children }) => {
           answered:
             getArticleText(answer) +
             " " +
-            state.currentSettings.words[state.currentSettings.chapter][
-              currentAnswer.index
-            ].word,
+            state.currentSettings.words[currentAnswer.index].word,
           correct:
             getArticleText(answerCorrect) +
             " " +
-            state.currentSettings.words[state.currentSettings.chapter][
-              currentAnswer.index
-            ].word,
+            state.currentSettings.words[currentAnswer.index].word,
           isCorrect: answer === answerCorrect,
           questionIndex: currentAnswer.index,
         })
@@ -242,10 +208,7 @@ export const QuizSessionProvider = ({ children }) => {
     var dw = [...displayedWords]
 
     do {
-      if (
-        dw.length >=
-        state.currentSettings.words[state.currentSettings.chapter].length
-      ) {
+      if (dw.length >= state.currentSettings.words.length) {
         break
       }
 
@@ -274,7 +237,7 @@ export const QuizSessionProvider = ({ children }) => {
     return state.currentSettings
   }
   function getWordsSource() {
-    return state.currentSettings.words[state.currentSettings.chapter]
+    return state.currentSettings.words
   }
 
   function getCurrentAnswer() {
@@ -289,9 +252,8 @@ export const QuizSessionProvider = ({ children }) => {
   }
 
   function getCurrentWord() {
-    return state.currentSettings.words[state.currentSettings.chapter][
-      state.currentAnswer.index
-    ]
+    console.log(state)
+    return state.currentSettings.words[state.currentAnswer.index]
   }
 
   return (

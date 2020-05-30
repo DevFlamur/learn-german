@@ -106,5 +106,81 @@
     "de": "Geschaft!!",
     "en": "Congratulation!",
     "sq": "Urime!!"
+  },
+  "SignIn": {
+    "de": "Einloggen",
+    "en": "Sign In!",
+    "sq": "Kyçu"
+  },
+  "EmailAddress": {
+    "de": "E-mail",
+    "en": "E-mail",
+    "sq": "E-mail"
+  },
+  "Password": {
+    "de": "Kennwort",
+    "en": "Password",
+    "sq": "Fjalëkalimi"
+  },
+  "ForgotPassword": {
+    "de": "Kennwort Vergessen?",
+    "en": "Forgot Password?",
+    "sq": "Fjalëkalimi i Harruar?"
+  },
+  "SignUp": {
+    "de": "Konto Erstellen",
+    "en": "Create Account",
+    "sq": "Hap Llogarinë"
+  },
+  "FirstName": {
+    "de": "Vorname",
+    "en": "First Name",
+    "sq": "Emri"
+  },
+  "LastName": {
+    "de": "Name",
+    "en": "Last Name",
+    "sq": "Mbiemri"
+  },
+  "WeakPasswordMessage": {
+    "de": "Kennwort sollte mindestens eine länge von 6 zeichen sein",
+    "en": "Password should be at least 6 characters",
+    "sq": "Gjatësia e fjalëkalimit duhet sëpaku të ketë 6 karaktere"
+  },
+  "EmailAlreadyInUseMessage": {
+    "de": "Diese E-mail kann nicht verwendet werden",
+    "en": "This E-mail can not be used",
+    "sq": "Ky E-mail nuk mund të përdoret"
+  },
+  "InvalidEmailMessage": {
+    "de": "Diese E-mail kann nicht verwendet werden",
+    "en": "This E-mail can not be used",
+    "sq": "Ky E-mail nuk mund të përdoret"
+  },
+  "OperationNotAllowedMessage": {
+    "de": "Diese E-mail kann nicht verwendet werden - Muss freigeschaltet werden!",
+    "en": "This E-mail can not be used - It must be enabled by an Administrator",
+    "sq": "Ky E-mail nuk mund të përdoret - duhët të konfigurohet nga Administratori"
+  },
+
+  "EmailNotFoundMessage": {
+    "de": "E-mail wurde nicht gefunden",
+    "en": "E-mail was not found",
+    "sq": "E-mail nuk u gjet"
+  },
+  "UserDisabledMessage": {
+    "de": "Dieses Konto wurde gesperrt",
+    "en": "This account was disabled",
+    "sq": "Kjo llogari është e bllokuar"
+  },
+  "UserNotFoundMessae": {
+    "de": "Falsche Kredentialen",
+    "en": "Wrong Credentials",
+    "sq": "Kredencialet e gabuar"
+  },
+  "WrongPasswordMessage": {
+    "de": "Falsches Kennwort",
+    "en": "Wrong Password was entered",
+    "sq": "Fjalëkalimi i gabuar"
   }
 }

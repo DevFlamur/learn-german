@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import PropTypes from "prop-types"
 import { navigate } from "gatsby"
 import "./layout.css"
@@ -89,17 +89,24 @@ const MenuItems = ({ children }) => {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
 
+  const { getAuthentication, getResourceText, signOut } = useContext(
+    LanguageContext
+  )
+
   const handleDrawerOpen = () => {
     setOpen(true)
   }
+  const handleSignOut = () => {
+    signOut()
+    navigate("/")
+  }
   const navigateTo = (to, goto, titleKey, sublineKey) => {
+    setOpen(false)
     navigate(to, { state: { goto, titleKey, sublineKey } })
   }
   const handleDrawerClose = () => {
     setOpen(false)
   }
-
-  const { getResourceText } = useContext(LanguageContext)
 
   return (
     <>
@@ -135,7 +142,7 @@ const MenuItems = ({ children }) => {
           }}
         >
           <div className={classes.drawerHeader}>
-            {`${getResourceText("Hello")} Username`}
+            {`${getResourceText("Hello")} ${getAuthentication().email}`}
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />
@@ -221,7 +228,11 @@ const MenuItems = ({ children }) => {
               <ListItemText primary={getResourceText("AboutUs")} />
             </ListItem>
 
-            <ListItem button key={getResourceText("SignOut")}>
+            <ListItem
+              onClick={() => handleSignOut()}
+              button
+              key={getResourceText("SignOut")}
+            >
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>

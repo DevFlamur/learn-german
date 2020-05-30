@@ -1,9 +1,13 @@
-import React, { createContext, useReducer } from "react"
+import React, { createContext, useReducer, useEffect } from "react"
 import AppReducer from "./AppReducer"
 import textResources from "../data/textresources.json"
+import { navigate } from "gatsby"
 
 var defaultLanguage = "de"
-var isAuthenticated = false
+var auth = {
+  isAuthenticated: false,
+  email: null,
+}
 if (typeof window !== "undefined" && window.localStorage) {
   defaultLanguage = localStorage.getItem("lng")
   if (defaultLanguage === undefined || defaultLanguage === null) {
@@ -11,20 +15,20 @@ if (typeof window !== "undefined" && window.localStorage) {
     localStorage.setItem("lng", "de")
   }
 
-  isAuthenticated = localStorage.getItem("isAuthenticated")
-  if (isAuthenticated === undefined || isAuthenticated === null) {
-    isAuthenticated = false
-    localStorage.setItem("isAuthenticated", false)
+  auth = localStorage.getItem("authInfo")
+  if (auth === undefined || auth === null) {
+    auth = {
+      isAuthenticated: false,
+      email: null,
+    }
+    localStorage.setItem("authInfo", JSON.stringify(auth))
   }
 }
 
 // initial State
 const intialState = {
   language: defaultLanguage,
-  authentication: {
-    isAuthenticated: isAuthenticated,
-    email: "",
-  },
+  authentication: auth,
 }
 
 // Create Context
@@ -33,6 +37,15 @@ export const LanguageContext = createContext(intialState)
 // Provider
 export const LanguageProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, intialState)
+
+  useEffect(() => {
+    dispatch({
+      type: "APPLICATION_SYNC_AUTH",
+    })
+    if (state.authentication.isAuthenticated === false) {
+      navigate("/")
+    }
+  }, [state.authentication.isAuthenticated])
 
   function switchLanguage(lng) {
     dispatch({
@@ -60,6 +73,18 @@ export const LanguageProvider = ({ children }) => {
     return state.language
   }
 
+  function setLogIn(email) {
+    dispatch({
+      type: "APPLICATION_SIGN_IN",
+      payload: email,
+    })
+  }
+  function signOut() {
+    dispatch({
+      type: "APPLICATION_SIGN_OUT",
+    })
+  }
+
   return (
     <LanguageContext.Provider
       value={{
@@ -67,6 +92,8 @@ export const LanguageProvider = ({ children }) => {
         getResourceText,
         getAuthentication,
         getCurrentLanguage,
+        setLogIn,
+        signOut,
       }}
     >
       {children}

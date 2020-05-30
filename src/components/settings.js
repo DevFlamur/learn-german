@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { LanguageContext } from "../context/LanguageContext"
 import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
@@ -17,19 +17,22 @@ function Settings(props) {
     },
   }))
 
+  const {
+    getCurrentLanguage,
+    switchLanguage,
+    getResourceText,
+    setLogIn,
+  } = useContext(LanguageContext)
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
 
-  const { getCurrentLanguage, switchLanguage, getResourceText } = useContext(
-    LanguageContext
-  )
-  const [lng, setAge] = React.useState(getCurrentLanguage())
+  const [lng, setLanguage] = React.useState(getCurrentLanguage())
 
   const handleChange = event => {
     setOpen(true)
+    setLanguage(event.target.value)
     switchLanguage(event.target.value)
-    setAge(event.target.value)
-    window.location.reload()
+    window.location.reload(true)
   }
   return (
     <>
