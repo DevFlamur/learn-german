@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: "/learn-german",
   siteMetadata: {
     title: `Deutsch Lernen`,
     description: `Ihr müsst nur die richtige wörter speichern und schon könnt ihr diese üben`,
