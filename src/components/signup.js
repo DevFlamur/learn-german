@@ -77,14 +77,13 @@ export default function SignUp(props) {
         console.log(error)
 
         var errorCode = error.code
-        var errorMessage = error.message
-        if (errorCode == "auth/weak-password") {
+        if (errorCode === "auth/weak-password") {
           setErrorText(getResourceText("WeakPasswordMessage"))
-        } else if (errorCode == "auth/email-already-in-use") {
+        } else if (errorCode === "auth/email-already-in-use") {
           setErrorText(getResourceText("EmailAlreadyInUseMessage"))
-        } else if (errorCode == "auth/invalid-email") {
+        } else if (errorCode === "auth/invalid-email") {
           setErrorText(getResourceText("InvalidEmailMessage"))
-        } else if (errorCode == "auth/operation-not-allowed") {
+        } else if (errorCode === "auth/operation-not-allowed") {
           setErrorText(getResourceText("OperationNotAllowedMessage"))
         }
       })
