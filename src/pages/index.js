@@ -85,6 +85,7 @@ function IndexPage() {
 
   return (
     <>
+      <link rel="manifest" href="/manifest.webmanifest"></link>
       <ThemeProvider theme={theme}>
         <LanguageProvider>
           <QuizSessionProvider>

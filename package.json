@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "learngerman",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "An quiz website to learn German in a quick and effective way",
   "version": "0.1.0",
   "author": "Flamur Muji",
   "dependencies": {
@@ -32,7 +32,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "gatsby clean && gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
@@ -40,12 +40,5 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",    
     "deploy": "gatsby build --prefix-paths && gh-pages -d public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }
