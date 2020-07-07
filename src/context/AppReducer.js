@@ -11,7 +11,7 @@ export default (state, action) => {
     case "APPLICATION_SYNC_AUTH":
       let authentication = {
         isAuthenticated: state.authentication.isAuthenticated,
-        email: state.authentication.email,
+        userName: state.authentication.userName,
       }
 
       if (typeof window !== "undefined" && window.localStorage) {
@@ -23,14 +23,14 @@ export default (state, action) => {
           state.authentication = JSON.parse(state.authentication)
         } catch (error) {}
         state.authentication.isAuthenticated = authentication.isAuthenticated
-        state.authentication.email = authentication.email
+        state.authentication.userName = authentication.userName
       }
       return state
     case "APPLICATION_GET_RESOURCE_TEXT":
       return state
     case "APPLICATION_SIGN_IN":
       state.authentication.isAuthenticated = true
-      state.authentication.email = action.payload
+      state.authentication.userName = action.payload
 
       if (typeof window !== "undefined" && window.localStorage) {
         localStorage.setItem("authInfo", JSON.stringify(state.authentication))
@@ -39,7 +39,7 @@ export default (state, action) => {
       return state
     case "APPLICATION_SIGN_OUT":
       state.authentication.isAuthenticated = false
-      state.authentication.email = null
+      state.authentication.userName = null
       if (typeof window !== "undefined" && window.localStorage) {
         localStorage.setItem("authInfo", JSON.stringify(state.authentication))
       }
@@ -49,15 +49,18 @@ export default (state, action) => {
       }
 
     case "QUIZSESSION_SET_CURRENT_QUIZ_SETTINGS":
-      var newState = { ...state, currentSettings: action.payload }
+      state.currentSettings = action.payload
 
       if (typeof window !== "undefined" && window.localStorage) {
         localStorage.setItem(
           "currentQuizSettings",
-          JSON.stringify(newState.currentSettings)
+          JSON.stringify(state.currentSettings)
         )
       }
-      return newState
+      return {
+        ...state,
+        state,
+      }
     case "QUIZSESSION_SET_QUIZSESSION":
       state.quizSession.push(action.payload)
       if (typeof window !== "undefined" && window.localStorage) {

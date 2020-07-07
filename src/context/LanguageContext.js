@@ -6,7 +6,7 @@ import { navigate } from "gatsby"
 var defaultLanguage = "de"
 var auth = {
   isAuthenticated: false,
-  email: null,
+  userName: null,
 }
 if (typeof window !== "undefined" && window.localStorage) {
   defaultLanguage = localStorage.getItem("lng")
@@ -19,7 +19,7 @@ if (typeof window !== "undefined" && window.localStorage) {
   if (auth === undefined || auth === null) {
     auth = {
       isAuthenticated: false,
-      email: null,
+      userName: null,
     }
     localStorage.setItem("authInfo", JSON.stringify(auth))
   }
@@ -73,10 +73,10 @@ export const LanguageProvider = ({ children }) => {
     return state.language
   }
 
-  function setLogIn(email) {
+  function setLogIn(userName) {
     dispatch({
       type: "APPLICATION_SIGN_IN",
-      payload: email,
+      payload: userName,
     })
   }
   function signOut() {

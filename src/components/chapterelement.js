@@ -5,9 +5,7 @@ import ToggleButton from "@material-ui/lab/ToggleButton"
 import { navigate } from "gatsby"
 
 import Card from "@material-ui/core/Card"
-import CardActions from "@material-ui/core/CardActions"
 import CardContent from "@material-ui/core/CardContent"
-import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
 import Grid from "@material-ui/core/Grid"
@@ -22,21 +20,22 @@ function ChapterElement(props) {
     QuizSessionContext
   )
 
-  const handleChange = (event, newChapter) => {
+  const handleChapterChange = chp => {
     const source = require("../data/articles/allchapters.json")
 
     const settings = {
-      words: source[newChapter],
-      chapter: newChapter,
+      words: source[chp],
+      chapter: chp,
     }
 
     setCurrentQuizSettings(settings)
-    //setWordsSource("../data/articles/allchapters.json")
+    handleNavigation(chp)
   }
 
-  const handleNavigation = () => {
-    if (getCurrentSettings().chapter !== null)
-      navigate(props.goto, { state: { chapter: getCurrentSettings().chapter } })
+  const handleNavigation = chp => {
+    if (getCurrentSettings().chapter !== null) {
+      navigate(props.goto, { state: { chapter: chp } })
+    }
   }
 
   return (
@@ -51,24 +50,22 @@ function ChapterElement(props) {
         <Grid item>
           <ToggleButtonGroup
             style={{ display: "block" }}
-            value={getCurrentSettings().chapter}
             exclusive
             size="large"
-            onChange={handleChange}
           >
             {[0, 1, 2, 3, 4, 5, 6].map((chp, index) => (
-              <ToggleButton style={{ width: "100%" }} key={index} value={chp}>
+              <ToggleButton
+                onClick={() => handleChapterChange(chp)}
+                style={{ width: "100%" }}
+                key={index}
+                value={chp}
+              >
                 {`${getResourceText("Chapter")} ${chp + 1}`}
               </ToggleButton>
             ))}
           </ToggleButtonGroup>
         </Grid>
       </CardContent>
-      <CardActions>
-        <Button size="small" onClick={() => handleNavigation()} color="primary">
-          {getResourceText("Start")}
-        </Button>
-      </CardActions>
     </Card>
   )
 }

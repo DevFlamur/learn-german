@@ -44,6 +44,7 @@ const useStyles = makeStyles(theme => ({
 export default function SignUp(props) {
   const classes = useStyles()
   const [email, setEmail] = useState("")
+  const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
@@ -52,6 +53,11 @@ export default function SignUp(props) {
   const handleEmailChange = e => {
     e.preventDefault()
     setEmail(e.target.value)
+    setErrorText("")
+  }
+  const handleUserNameChange = e => {
+    e.preventDefault()
+    setUserName(e.target.value)
     setErrorText("")
   }
 
@@ -67,6 +73,9 @@ export default function SignUp(props) {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(u => {
+        u.user.updateProfile({
+          displayName: userName,
+        })
         setTimeout(() => {
           props.switchView(true)
           setIsLoading(false)
@@ -107,6 +116,17 @@ export default function SignUp(props) {
         </Typography>
         <form className={classes.form} autoComplete="off" noValidate>
           <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                onChange={e => handleUserNameChange(e)}
+                required
+                fullWidth
+                id="username"
+                label={getResourceText("UserName")}
+                name="username"
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"

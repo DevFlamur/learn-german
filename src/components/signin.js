@@ -39,7 +39,7 @@ export default function SignIn(props) {
   const classes = useStyles()
   const { setLogIn, getResourceText } = useContext(LanguageContext)
 
-  useEffect(props => {
+  useEffect(() => {
     props.switchView(true)
   }, [])
 
@@ -65,7 +65,7 @@ export default function SignIn(props) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(u => {
-        setLogIn(email)
+        setLogIn(u.user.displayName)
         navigate("/home/")
       })
       .catch(error => {

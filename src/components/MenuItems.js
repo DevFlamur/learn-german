@@ -142,7 +142,7 @@ const MenuItems = ({ children }) => {
           }}
         >
           <div className={classes.drawerHeader}>
-            {`${getResourceText("Hello")} ${getAuthentication().email}`}
+            {`${getResourceText("Hello")} ${getAuthentication().userName}`}
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />
