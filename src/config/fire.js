@@ -1,6 +1,6 @@
 import firebase from "firebase"
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyB52DMzUTevgCuCGWvPGda2PsxXxe3PQSg",
   authDomain: "learn-german-a4a21.firebaseapp.com",
   databaseURL: "https://learn-german-a4a21.firebaseio.com",

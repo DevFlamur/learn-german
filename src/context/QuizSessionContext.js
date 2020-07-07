@@ -38,8 +38,6 @@ export const QuizSessionContext = createContext(intialState)
 export const QuizSessionProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, intialState)
 
-  function refreshSettings() {}
-
   function setCurrentQuizSettings(settings) {
     dispatch({
       type: "QUIZSESSION_SET_CURRENT_QUIZ_SETTINGS",

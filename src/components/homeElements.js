@@ -1,6 +1,5 @@
 import React, { useContext } from "react"
 import { LanguageContext } from "../context/LanguageContext"
-import ToggleButton from "@material-ui/lab/ToggleButton"
 
 import { navigate } from "gatsby"
 
@@ -11,9 +10,6 @@ import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
 import Grid from "@material-ui/core/Grid"
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup"
-
-import { QuizSessionContext } from "../context/QuizSessionContext"
 
 function HomeElement(props) {
   const { getResourceText } = useContext(LanguageContext)

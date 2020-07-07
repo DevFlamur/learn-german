@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext } from "react"
 import { LanguageContext } from "../context/LanguageContext"
 import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
@@ -17,12 +17,9 @@ function Settings(props) {
     },
   }))
 
-  const {
-    getCurrentLanguage,
-    switchLanguage,
-    getResourceText,
-    setLogIn,
-  } = useContext(LanguageContext)
+  const { getCurrentLanguage, switchLanguage, getResourceText } = useContext(
+    LanguageContext
+  )
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
 

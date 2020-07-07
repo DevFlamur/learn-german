@@ -112,6 +112,11 @@
     "en": "Sign In!",
     "sq": "Kyçu"
   },
+  "UserName": {
+    "de": "Nutzer Name",
+    "en": "User Name",
+    "sq": "Emri Perdoruesit"
+  },
   "EmailAddress": {
     "de": "E-mail",
     "en": "E-mail",

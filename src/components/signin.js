@@ -65,20 +65,19 @@ export default function SignIn(props) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(u => {
-        setLogIn(email)
+        setLogIn(u.user.displayName)
         navigate("/home/")
       })
       .catch(error => {
         console.log(error)
         var errorCode = error.code
-        var errorMessage = error.message
-        if (errorCode == "auth/invalid-email") {
+        if (errorCode === "auth/invalid-email") {
           setErrorText(getResourceText("EmailNotFoundMessage"))
-        } else if (errorCode == "auth/user-disabled") {
+        } else if (errorCode === "auth/user-disabled") {
           setErrorText(getResourceText("UserDisabledMessage"))
-        } else if (errorCode == "auth/user-not-found") {
+        } else if (errorCode === "auth/user-not-found") {
           setErrorText(getResourceText("UserNotFoundMessae"))
-        } else if (errorCode == "auth/wrong-password") {
+        } else if (errorCode === "auth/wrong-password") {
           setErrorText(getResourceText("WrongPasswordMessage"))
         }
       })
@@ -104,7 +103,6 @@ export default function SignIn(props) {
             id="email"
             label={getResourceText("EmailAddress")}
             name="email"
-            autoFocus
           />
           <TextField
             variant="outlined"
