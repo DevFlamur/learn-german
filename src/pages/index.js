@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import SignIn from "../components/signin"
 import SignUp from "../components/signup"
 
@@ -6,7 +6,6 @@ import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import clsx from "clsx"
-import firebase from "../config/fire"
 
 import { LanguageProvider } from "../context/LanguageContext"
 import { QuizSessionProvider } from "../context/QuizSessionContext"
@@ -16,7 +15,6 @@ import { ThemeProvider } from "@material-ui/core/styles"
 import theme from "../theme"
 
 import { makeStyles } from "@material-ui/core/styles"
-import { keys } from "@material-ui/core/styles/createBreakpoints"
 
 const drawerWidth = 240
 const useStyles = makeStyles(theme => ({
