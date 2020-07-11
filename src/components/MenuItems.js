@@ -18,6 +18,7 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 import AssessmentIcon from "@material-ui/icons/Assessment"
+import HomeIcon from "@material-ui/icons/Home"
 import SchoolIcon from "@material-ui/icons/School"
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"
 import InfoIcon from "@material-ui/icons/Info"
@@ -153,6 +154,14 @@ const MenuItems = ({ children }) => {
           </div>
           <Divider />
           <List>
+            <ListItem button onClick={() => navigate("/home/")}>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary={getResourceText("Home")} />
+            </ListItem>
+
+            <Divider />
             {[
               {
                 text: getResourceText("DerDieDasTitle"),
