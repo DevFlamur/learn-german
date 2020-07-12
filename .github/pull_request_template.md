@@ -6,9 +6,9 @@
 
 ## Has the issue been approved to work on?
 
-[] yes
+- [ ] yes
 
-[] no
+- [ ] no
 
 ## List the changes
 
@@ -17,8 +17,8 @@
 
 ## Check list
 
-[] Locally tested succesfully
+- [ ] Locally tested succesfully
 
-[] Documentation
+- [ ] Documentation
 
-[] Translations
+- [ ] Translations
