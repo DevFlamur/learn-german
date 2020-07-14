@@ -4,6 +4,7 @@ import Layout from "../components/layout"
 
 function QuizPage({ location }) {
   let chapter = 0
+
   if (typeof location.state !== "undefined" && location.state) {
     chapter = location.state.chapter
   }

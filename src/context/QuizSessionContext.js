@@ -1,6 +1,5 @@
 import React, { createContext, useReducer, useState } from "react"
 import AppReducer from "./AppReducer"
-import { navigate } from "gatsby"
 
 var quizSessionStore = undefined
 var currentSettingsStore = undefined
@@ -87,81 +86,119 @@ export const QuizSessionProvider = ({ children }) => {
 
   const [isWrongText, setIsWrongText] = useState("")
   const [answeredQuestion, setAnsweredQuestion] = useState([])
-  const [displayedWords, setDisplayedWords] = useState([0])
+  const [displayedQuestions, setDisplayedQuestions] = useState([0])
+
+  function isCorrect(answer, answerCorrect) {
+    var currentQuizSettings = getCurrentSettings()
+    /*
+    QuestionType 1* : Der, Die, Das Module
+    QuestionType 2* : Plural
+    QuestionType 3* : Opposites
+    QuestionType 4* : Numbers
+    */
+    if (currentQuizSettings.questionType === 1) {
+      return answer === answerCorrect
+    }
+
+    return false
+  }
+
+  function changeQuestion() {
+    const currentAnswer = state.currentAnswer
+    var availableQuestionLength = state.currentSettings.words.length
+    var questionIndex = getNextRandomQuestionIndex(
+      0,
+      availableQuestionLength,
+      false
+    )
+    if (
+      displayedQuestions.length < availableQuestionLength &&
+      questionIndex !== -1
+    ) {
+      currentAnswer.index = questionIndex
+      saveCurrentAnswers(currentAnswer)
+      return true
+    }
+
+    var dc = [...displayedQuestions]
+    currentAnswer.index = dc[displayedQuestions.length - 1]
+
+    var dcFound = [...displayedQuestions]
+    dcFound.push(currentAnswer.index)
+    setDisplayedQuestions(dcFound)
+
+    return false
+  }
+
+  function increaseCorrectAnswerCount() {
+    const currentAnswer = state.currentAnswer
+    currentAnswer.correctAnswerCount = currentAnswer.correctAnswerCount + 1
+    saveCurrentAnswers(currentAnswer)
+  }
+
+  function increaseWrongAnswerCount() {
+    const currentAnswer = state.currentAnswer
+    currentAnswer.wrongAnswerCount = currentAnswer.wrongAnswerCount + 1
+    saveCurrentAnswers(currentAnswer)
+  }
+
+  function pushToAnsweredQuestion(answer, answerCorrect) {
+    const currentAnswer = state.currentAnswer
+    var questionText = state.currentSettings.words[currentAnswer.index].word
+    var givenAnswerText = `${getArticleText(answer)} ${questionText}`
+    var correctAnswerText = `${getArticleText(answerCorrect)} ${questionText}`
+
+    var answeredQuestionArray = [...answeredQuestion]
+    answeredQuestionArray.push({
+      answered: givenAnswerText,
+      correct: correctAnswerText,
+      isCorrect: isCorrect(answer, answerCorrect),
+      questionIndex: currentAnswer.index,
+    })
+    setAnsweredQuestion(answeredQuestionArray)
+  }
+
+  function clearWrongText() {
+    setIsWrongText("")
+  }
+
+  function displayWrongText(answerCorrect) {
+    const currentAnswer = state.currentAnswer
+    var questionText = state.currentSettings.words[currentAnswer.index].word
+    setIsWrongText(`${getArticleText(answerCorrect)} ${questionText}`)
+  }
 
   function checkQuestion(answer, answerCorrect) {
-    const currentAnswer = state.currentAnswer
-    var aq = [...answeredQuestion]
+    var wasWrongAnswerBefore = isWrongText !== ""
+    clearWrongText()
 
-    var wasWrongBefore = isWrongText !== ""
-    setIsWrongText("")
-    if (answer === answerCorrect && !wasWrongBefore) {
-      currentAnswer.correctAnswerCount = currentAnswer.correctAnswerCount + 1
-      aq.push({
-        answered:
-          getArticleText(answer) +
-          " " +
-          state.currentSettings.words[currentAnswer.index].word,
-        correct:
-          getArticleText(answerCorrect) +
-          " " +
-          state.currentSettings.words[currentAnswer.index].word,
-        isCorrect: true,
-        questionIndex: currentAnswer.index,
-      })
-      setAnsweredQuestion(aq)
-    } else if (
-      !wasWrongBefore ||
-      (answer !== answerCorrect && wasWrongBefore)
-    ) {
-      if (!wasWrongBefore)
-        currentAnswer.wrongAnswerCount = currentAnswer.wrongAnswerCount + 1
-
-      var articleText =
-        answerCorrect === 1 ? "Der" : answerCorrect === 2 ? "Die" : "Das"
-      setIsWrongText(
-        articleText +
-          " " +
-          state.currentSettings.words[currentAnswer.index].word
-      )
-      if (!wasWrongBefore) {
-        aq.push({
-          answered:
-            getArticleText(answer) +
-            " " +
-            state.currentSettings.words[currentAnswer.index].word,
-          correct:
-            getArticleText(answerCorrect) +
-            " " +
-            state.currentSettings.words[currentAnswer.index].word,
-          isCorrect: false,
-          questionIndex: currentAnswer.index,
-        })
-        setAnsweredQuestion(aq)
+    if (wasWrongAnswerBefore) {
+      if (!isCorrect(answer, answerCorrect)) {
+        displayWrongText(answerCorrect)
+        return
       }
-
-      return
-    } else if (answer === answerCorrect && wasWrongBefore) {
+    } else if (!wasWrongAnswerBefore) {
+      if (isCorrect(answer, answerCorrect)) {
+        increaseCorrectAnswerCount()
+        pushToAnsweredQuestion(answer, answerCorrect)
+      } else {
+        increaseWrongAnswerCount()
+        displayWrongText(answerCorrect)
+        pushToAnsweredQuestion(answer, answerCorrect)
+        return
+      }
     }
-    var number = getRandomInt(0, state.currentSettings.words.length)
-    if (
-      displayedWords.length < state.currentSettings.words.length &&
-      number !== -1
-    )
-      currentAnswer.index = number
-    else {
-      var answers = [...answeredQuestion]
 
-      if (!wasWrongBefore) {
+    //checking if it is last question here
+    if (!changeQuestion()) {
+      var answers = [...answeredQuestion]
+      const currentAnswer = state.currentAnswer
+      var questionText = state.currentSettings.words[currentAnswer.index].word
+
+      if (!wasWrongAnswerBefore) {
         answers.push({
-          answered:
-            getArticleText(answer) +
-            " " +
-            state.currentSettings.words[currentAnswer.index].word,
-          correct:
-            getArticleText(answerCorrect) +
-            " " +
-            state.currentSettings.words[currentAnswer.index].word,
+          answered: getArticleText(answer) + " " + questionText,
+          correct: getArticleText(answerCorrect) + " " + questionText,
           isCorrect: answer === answerCorrect,
           questionIndex: currentAnswer.index,
         })
@@ -177,36 +214,44 @@ export const QuizSessionProvider = ({ children }) => {
 
       currentAnswer.correctAnswerCount = 0
       currentAnswer.wrongAnswerCount = 0
+
+      var aq = [...answeredQuestion]
       aq.length = 0
       setAnsweredQuestion(aq)
 
-      var dc = [...displayedWords]
-      currentAnswer.index = dc[displayedWords.length - 1]
+      // dc.length = 0
+      // setDisplayedQuestions(dc)
 
-      var dcFound = [...displayedWords]
-      dcFound.push(currentAnswer.index)
-      setDisplayedWords(dcFound)
+      // var dc = [...displayedQuestions]
+      // currentAnswer.index = dc[displayedQuestions.length - 1]
 
-      dc.length = 1
-      dc[0] = currentAnswer.index
-      setDisplayedWords(dc)
+      // var dcFound = [...displayedQuestions]
+      // dcFound.push(currentAnswer.index)
+      // setDisplayedQuestions(dcFound)
+      // var dc = [...displayedQuestions]
+
+      // dc[0] = currentAnswer.index
 
       //show confirmation screen
-      navigate("/quizCompletionPage")
+      return true
     }
+    clearAnswer()
+    return false
+  }
 
+  function clearAnswer() {
+    const currentAnswer = state.currentAnswer
     currentAnswer.answer = null
-    setAnswer({ articleId: null })
     saveCurrentAnswers(currentAnswer)
   }
 
-  function getRandomInt(min, max) {
+  function getNextRandomQuestionIndex(min, max, isInit) {
     var found = false
     var number = -1
-    var dw = [...displayedWords]
+    var displayedQuestionList = [...displayedQuestions]
 
     do {
-      if (dw.length >= state.currentSettings.words.length) {
+      if (displayedQuestionList.length >= state.currentSettings.words.length) {
         break
       }
 
@@ -214,11 +259,13 @@ export const QuizSessionProvider = ({ children }) => {
       max = Math.floor(max)
       number = Math.floor(Math.random() * (max - min)) + min
 
-      if (!dw.includes(number)) {
+      if (!displayedQuestionList.includes(number)) {
         found = true
-        var dcFound = [...displayedWords]
-        dcFound.push(number)
-        setDisplayedWords(dcFound)
+        if (!isInit) {
+          var dcFound = [...displayedQuestions]
+          dcFound.push(number)
+          setDisplayedQuestions(dcFound)
+        }
       }
     } while (found === false)
 
@@ -239,10 +286,19 @@ export const QuizSessionProvider = ({ children }) => {
   }
 
   function getCurrentAnswer() {
+    // var displayedQuestionList = [...displayedQuestions]
+    // if (
+    //   displayedQuestionList.length === 1 &&
+    //   displayedQuestionList[0] !== state.currentAnswer.index
+    // ) {
+    //   displayedQuestionList[0] = state.currentAnswer.index
+    //   setDisplayedQuestions(displayedQuestionList)
+    //   clearAnswer()
+    // }
     return state.currentAnswer
   }
-  function getDisplayedWords() {
-    return displayedWords
+  function getDisplayedQuestions() {
+    return displayedQuestions
   }
 
   function getIsWrongText() {
@@ -250,7 +306,6 @@ export const QuizSessionProvider = ({ children }) => {
   }
 
   function getCurrentWord() {
-    console.log(state)
     return state.currentSettings.words[state.currentAnswer.index]
   }
 
@@ -263,7 +318,7 @@ export const QuizSessionProvider = ({ children }) => {
         getCurrentSettings,
         getIsWrongText,
         getCurrentAnswer,
-        getDisplayedWords,
+        getDisplayedQuestions,
         getWordsSource,
         getCurrentWord,
       }}

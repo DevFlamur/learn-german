@@ -19,6 +19,10 @@ import DialogTitle from "@material-ui/core/DialogTitle"
 import Button from "@material-ui/core/Button"
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline"
 import Grid from "@material-ui/core/Grid"
+import HomeIcon from "@material-ui/icons/Home"
+import { navigate } from "gatsby"
+
+import ButtonGroup from "@material-ui/core/ButtonGroup"
 
 function ResultList() {
   const { getResourceText } = useContext(LanguageContext)
@@ -119,9 +123,27 @@ function ResultList() {
           <br />
           <h1>{getResourceText("Results")}</h1>
         </Grid>
-        <Grid align="right">
-          <DeleteOutlineIcon fontSize="large" onClick={handleClickOpen} />
+        <Grid>
+          <Grid align="right">
+            <ButtonGroup
+              size="small"
+              color="primary"
+              aria-label="small outlined primary button group"
+            >
+              <Button>
+                {" "}
+                <HomeIcon fontSize="large" onClick={() => navigate("/home")} />
+              </Button>
+              <Button> </Button>
+              <Button>
+                {" "}
+                <DeleteOutlineIcon fontSize="large" onClick={handleClickOpen} />
+              </Button>
+            </ButtonGroup>
+          </Grid>
+          <br />
         </Grid>
+
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>

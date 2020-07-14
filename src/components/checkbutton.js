@@ -9,7 +9,13 @@ function CheckButton(props) {
         className="LinkButton"
         type="button"
         value={getResourceText("Next")}
-        onClick={e => props.checkQuestion(props.answer, props.answerCorrect)}
+        onClick={e =>
+          props.checkQuestion(
+            props.answer,
+            props.answerCorrect,
+            props.questionType
+          )
+        }
       />
     </>
   )
