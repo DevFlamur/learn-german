@@ -21,11 +21,18 @@ function ChapterElement(props) {
   )
 
   const handleChapterChange = chp => {
-    const source = require("../data/articles/allchapters.json")
+    const source = require("../data/articles.json")
+
+    let questionType = -1
+
+    if (props.goto === "/quizPage/") {
+      questionType = 1
+    }
 
     const settings = {
       words: source[chp],
       chapter: chp,
+      questionType: questionType,
     }
 
     setCurrentQuizSettings(settings)

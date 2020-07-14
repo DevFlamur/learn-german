@@ -3,19 +3,29 @@ import CheckButton from "../components/checkbutton"
 import ArticleSelector from "../components/articleselector"
 import Points from "../components/points"
 import Word from "../components/word"
+import { navigate } from "gatsby"
 
 import { QuizSessionContext } from "../context/QuizSessionContext"
 
-function ArticlesQuiz(props) {
+function ArticlesQuiz() {
   const {
     checkQuestion,
     setAnswer,
     getIsWrongText,
-    getDisplayedWords,
+    getDisplayedQuestions,
     getCurrentAnswer,
     getCurrentWord,
     getWordsSource,
   } = useContext(QuizSessionContext)
+
+  const questionType = 1
+
+  function chekQuestionWrapper(answer, answerCorrect, questionType) {
+    // if true then end of quiz
+    if (checkQuestion(answer, answerCorrect, questionType)) {
+      navigate("/quizCompletionPage")
+    }
+  }
 
   return (
     <>
@@ -42,13 +52,14 @@ function ArticlesQuiz(props) {
         <br />
         <br />
         <CheckButton
-          checkQuestion={checkQuestion}
+          checkQuestion={chekQuestionWrapper}
           answer={getCurrentAnswer().answer}
           answerCorrect={getCurrentWord().correct}
+          questionType={questionType}
         />
         <br />
         <p>
-          {getDisplayedWords().length}/{getWordsSource().length}
+          {getDisplayedQuestions().length}/{getWordsSource().length}
         </p>
         <br />
       </div>

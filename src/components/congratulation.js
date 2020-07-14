@@ -5,6 +5,7 @@ import { Link } from "gatsby"
 
 function Congratulation(props) {
   const { getResourceText } = useContext(LanguageContext)
+
   return (
     <>
       <h1>{getResourceText("CongratulationText")}</h1>
@@ -17,6 +18,14 @@ function Congratulation(props) {
           className="LinkButton"
           type="button"
           value={getResourceText("Results")}
+        />
+      </Link>
+
+      <Link to="/home/">
+        <input
+          className="LinkButton"
+          type="button"
+          value={getResourceText("Home")}
         />
       </Link>
     </>

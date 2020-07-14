@@ -1,3 +1,12 @@
+const resetCurrentAnswer = state => {
+  state.currentAnswer = {
+    index: 0,
+    correctAnswerCount: 0,
+    wrongAnswerCount: 0,
+    answer: 0,
+  }
+}
+
 export default (state, action) => {
   switch (action.type) {
     case "APPLICATION_SWITCH_LANGUAGE":
@@ -50,6 +59,8 @@ export default (state, action) => {
 
     case "QUIZSESSION_SET_CURRENT_QUIZ_SETTINGS":
       state.currentSettings = action.payload
+      resetCurrentAnswer(state)
+      console.log(state)
 
       if (typeof window !== "undefined" && window.localStorage) {
         localStorage.setItem(
