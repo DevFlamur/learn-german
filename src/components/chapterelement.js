@@ -21,7 +21,7 @@ function ChapterElement(props) {
   )
 
   const handleChapterChange = chp => {
-    const source = require("../data/articles.json")
+    const source = require("../data/articles/allchapters.json")
 
     let questionType = -1
 
