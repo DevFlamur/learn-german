@@ -286,15 +286,6 @@ export const QuizSessionProvider = ({ children }) => {
   }
 
   function getCurrentAnswer() {
-    // var displayedQuestionList = [...displayedQuestions]
-    // if (
-    //   displayedQuestionList.length === 1 &&
-    //   displayedQuestionList[0] !== state.currentAnswer.index
-    // ) {
-    //   displayedQuestionList[0] = state.currentAnswer.index
-    //   setDisplayedQuestions(displayedQuestionList)
-    //   clearAnswer()
-    // }
     return state.currentAnswer
   }
   function getDisplayedQuestions() {
@@ -309,6 +300,33 @@ export const QuizSessionProvider = ({ children }) => {
     return state.currentSettings.words[state.currentAnswer.index]
   }
 
+  function getQuizSessionFromStorage() {
+    var store = undefined
+    if (typeof window !== "undefined" && window.localStorage)
+      store = JSON.parse(localStorage.getItem("jsonObject"))
+    if (store !== undefined && store !== null) return store
+    return []
+  }
+
+  function deleteQuizSessionFromStorage(sessionList) {
+    var storeInDeleted = undefined
+    if (typeof window !== "undefined" && window.localStorage)
+      storeInDeleted = JSON.parse(localStorage.getItem("jsonObject"))
+
+    if (storeInDeleted === undefined || storeInDeleted === null) {
+      localStorage.setItem("jsonObject", JSON.stringify(sessionList))
+    } else {
+      localStorage.removeItem("jsonObject")
+    }
+    deleteQuizSession()
+  }
+
+  function deleteQuizSession() {
+    dispatch({
+      type: "QUIZSESSION_DELETE_FROM_STATE",
+    })
+  }
+
   return (
     <QuizSessionContext.Provider
       value={{
@@ -321,6 +339,8 @@ export const QuizSessionProvider = ({ children }) => {
         getDisplayedQuestions,
         getWordsSource,
         getCurrentWord,
+        getQuizSessionFromStorage,
+        deleteQuizSessionFromStorage,
       }}
     >
       {children}
