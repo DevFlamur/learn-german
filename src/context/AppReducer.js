@@ -78,6 +78,12 @@ export default (state, action) => {
         localStorage.setItem("jsonObject", JSON.stringify(state.quizSession))
       }
       return state
+    case "QUIZSESSION_DELETE_FROM_STATE":
+      state.quizSession = []
+      return {
+        ...state,
+        state,
+      }
     case "QUIZSESSION_SET_CURRENTANSWERS":
       return { ...state, currentQuestion: action.payload }
 

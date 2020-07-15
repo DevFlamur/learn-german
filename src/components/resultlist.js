@@ -21,20 +21,18 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline"
 import Grid from "@material-ui/core/Grid"
 import HomeIcon from "@material-ui/icons/Home"
 import { navigate } from "gatsby"
+import { QuizSessionContext } from "../context/QuizSessionContext"
 
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 
 function ResultList() {
   const { getResourceText } = useContext(LanguageContext)
+  const {
+    getQuizSessionFromStorage,
+    deleteQuizSessionFromStorage,
+  } = useContext(QuizSessionContext)
 
-  var store = undefined
-
-  if (typeof window !== "undefined" && window.localStorage)
-    store = JSON.parse(localStorage.getItem("jsonObject"))
-  var storedData = []
-  if (store !== undefined && store !== null) storedData = store
-
-  const [quizSession, setQuizSession] = useState(storedData)
+  const [quizSession, setQuizSession] = useState(getQuizSessionFromStorage())
 
   const [open, setOpen] = React.useState(false)
 
@@ -48,20 +46,11 @@ function ResultList() {
 
   const deleteResultList = () => {
     // Save it!
-
     var sessionList = [...quizSession]
     sessionList.length = 0
     setQuizSession(sessionList)
 
-    var storeInDeleted = undefined
-    if (typeof window !== "undefined" && window.localStorage)
-      storeInDeleted = JSON.parse(localStorage.getItem("jsonObject"))
-
-    if (storeInDeleted === undefined || storeInDeleted === null) {
-      localStorage.setItem("jsonObject", JSON.stringify(sessionList))
-    } else {
-      localStorage.removeItem("jsonObject")
-    }
+    deleteQuizSessionFromStorage(sessionList)
 
     handleClose()
   }
