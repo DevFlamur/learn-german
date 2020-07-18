@@ -28,6 +28,7 @@ const intialState = {
     answer: 0,
   },
   currentSettings: currentSettingsData,
+  wordListSource: [],
 }
 
 // Create Context
@@ -327,6 +328,17 @@ export const QuizSessionProvider = ({ children }) => {
     })
   }
 
+  function setWordListSource(wordListSource) {
+    dispatch({
+      type: "SET_WORD_LIST_SOURCE",
+      payload: wordListSource,
+    })
+  }
+
+  function getWordListSource() {
+    return state.wordListSource
+  }
+
   return (
     <QuizSessionContext.Provider
       value={{
@@ -341,6 +353,8 @@ export const QuizSessionProvider = ({ children }) => {
         getCurrentWord,
         getQuizSessionFromStorage,
         deleteQuizSessionFromStorage,
+        setWordListSource,
+        getWordListSource,
       }}
     >
       {children}

@@ -187,5 +187,16 @@
     "de": "Falsches Kennwort",
     "en": "Wrong Password was entered",
     "sq": "Fjalëkalimi i gabuar"
+  },
+  "WordList": {
+    "de": "Wörterliste",
+    "en": "Word List",
+    "sq": "Lista Fjalëve"
+  },
+  "WordList_Word_Column": { "de": "Wort", "en": "Word", "sq": "Fjala" },
+  "WordList_Translation_Column": {
+    "de": "Übersetzung",
+    "en": "Translation",
+    "sq": "Përkthimi"
   }
 }

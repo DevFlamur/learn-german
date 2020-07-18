@@ -84,6 +84,13 @@ export default (state, action) => {
         ...state,
         state,
       }
+    case "SET_WORD_LIST_SOURCE":
+      state.wordListSource = action.payload
+
+      return {
+        ...state,
+        state,
+      }
     case "QUIZSESSION_SET_CURRENTANSWERS":
       return { ...state, currentQuestion: action.payload }
 
