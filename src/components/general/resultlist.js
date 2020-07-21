@@ -8,7 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer"
 import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
-import { LanguageContext } from "../context/LanguageContext"
+import { LanguageContext } from "../../context/LanguageContext"
 import DescriptionIcon from "@material-ui/icons/Description"
 
 import Dialog from "@material-ui/core/Dialog"
@@ -21,7 +21,7 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline"
 import Grid from "@material-ui/core/Grid"
 import HomeIcon from "@material-ui/icons/Home"
 import { navigate } from "gatsby"
-import { QuizSessionContext } from "../context/QuizSessionContext"
+import { BaseQuizSessionContext } from "../../context/BaseQuizSessionProvider"
 
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 
@@ -30,7 +30,7 @@ function ResultList() {
   const {
     getQuizSessionFromStorage,
     deleteQuizSessionFromStorage,
-  } = useContext(QuizSessionContext)
+  } = useContext(BaseQuizSessionContext)
 
   const [quizSession, setQuizSession] = useState(getQuizSessionFromStorage())
 

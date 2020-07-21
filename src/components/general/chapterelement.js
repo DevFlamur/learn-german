@@ -1,6 +1,5 @@
 import React, { useContext } from "react"
-import { LanguageContext } from "../context/LanguageContext"
-import ToggleButton from "@material-ui/lab/ToggleButton"
+import { LanguageContext } from "../../context/LanguageContext"
 import CardActions from "@material-ui/core/CardActions"
 import Button from "@material-ui/core/Button"
 
@@ -12,7 +11,7 @@ import Typography from "@material-ui/core/Typography"
 
 import Grid from "@material-ui/core/Grid"
 
-import { QuizSessionContext } from "../context/QuizSessionContext"
+import { BaseQuizSessionContext } from "../../context/BaseQuizSessionProvider"
 
 function ChapterElement(props) {
   const { getResourceText } = useContext(LanguageContext)
@@ -21,7 +20,7 @@ function ChapterElement(props) {
     setCurrentQuizSettings,
     getCurrentSettings,
     setWordListSource,
-  } = useContext(QuizSessionContext)
+  } = useContext(BaseQuizSessionContext)
 
   const getQuestionType = () => {
     var questionType = -1
@@ -36,14 +35,14 @@ function ChapterElement(props) {
   }
 
   const getQuestionSource = () => {
-    var source = require("../data/articles/allchapters.json")
+    var source = require("../quizmodules/articles/data/allchapters.json")
     var questionType = getQuestionType()
     switch (questionType) {
       case 2:
-        source = require("../data/plural/allchapters.json")
+        source = require("../quizmodules/plural/data/allchapters.json")
         break
       case 3:
-        source = require("../data/opposites/allchapters.json")
+        source = require("../quizmodules/opposites/data/allchapters.json")
         break
     }
     return source
@@ -94,39 +93,34 @@ function ChapterElement(props) {
       </Typography>
       <Grid item>
         {[0, 1, 2, 3, 4, 5, 6].map((chp, index) => (
-          // <ToggleButton
-          //   onClick={() => handleChapterChange(chp)}
-          //   style={{ width: "100%" }}
-          //   key={index}
-          //   value={chp}
-          // >
+          <div key={chp}>
+            <Card style={{ width: "100%" }}>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {`${getResourceText("Chapter")} ${chp + 1}`}
+                </Typography>
+                <Grid item></Grid>
+              </CardContent>
+              <CardActions>
+                <Button
+                  size="small"
+                  onClick={() => handleChapterChange(chp)}
+                  color="primary"
+                >
+                  {getResourceText("Start")}
+                </Button>
 
-          // </ToggleButton>
-          <Card style={{ width: "100%" }}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {`${getResourceText("Chapter")} ${chp + 1}`}
-              </Typography>
-              <Grid item></Grid>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                onClick={() => handleChapterChange(chp)}
-                color="primary"
-              >
-                {getResourceText("Start")}
-              </Button>
-
-              <Button
-                size="small"
-                onClick={() => handleOpenWordList(chp)}
-                color="primary"
-              >
-                {getResourceText("WordList")}
-              </Button>
-            </CardActions>
-          </Card>
+                <Button
+                  size="small"
+                  onClick={() => handleOpenWordList(chp)}
+                  color="primary"
+                >
+                  {getResourceText("WordList")}
+                </Button>
+              </CardActions>
+            </Card>
+            <br />
+          </div>
         ))}
       </Grid>
     </>

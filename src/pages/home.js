@@ -1,7 +1,7 @@
 import React from "react"
-import HomeElement from "../components/homeElements"
+import HomeElement from "../components/general/homeElements"
 
-import Layout from "../components/layout"
+import Layout from "../components/general/layout"
 
 function Home() {
   return (

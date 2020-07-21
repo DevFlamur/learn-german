@@ -1,11 +1,11 @@
 import React, { useContext } from "react"
-import CheckButton from "../components/checkbutton"
-import ArticleSelector from "../components/articleselector"
-import Points from "../components/points"
-import Word from "../components/word"
+import NextButton from "../../shared/nextbutton"
+import ArticleSelector from "./articleselector"
+import QuizScore from "../../shared/quizscore"
+import Word from "../../shared/word"
 import { navigate } from "gatsby"
 
-import { QuizSessionContext } from "../context/QuizSessionContext"
+import { BaseQuizSessionContext } from "../../../context/BaseQuizSessionProvider"
 
 function ArticlesQuiz() {
   const {
@@ -16,7 +16,7 @@ function ArticlesQuiz() {
     getCurrentAnswer,
     getCurrentWord,
     getWordsSource,
-  } = useContext(QuizSessionContext)
+  } = useContext(BaseQuizSessionContext)
 
   const questionType = 1
 
@@ -36,7 +36,7 @@ function ArticlesQuiz() {
           padding: `0 1.0875rem 1.45rem`,
         }}
       >
-        <Points
+        <QuizScore
           correctPoints={getCurrentAnswer().correctAnswerCount}
           wrongPoints={getCurrentAnswer().wrongAnswerCount}
         />
@@ -47,11 +47,12 @@ function ArticlesQuiz() {
           index={getCurrentAnswer().index}
           currentAnswer={getCurrentAnswer().answer}
         />
-        <p style={{ color: "red" }}>{getIsWrongText()}</p>
+        <br />
         <Word word={getCurrentWord().word} />
+        <p style={{ color: "red", textAlign: "center" }}>{getIsWrongText()}</p>
         <br />
         <br />
-        <CheckButton
+        <NextButton
           checkQuestion={chekQuestionWrapper}
           answer={getCurrentAnswer().answer}
           answerCorrect={getCurrentWord().correct}

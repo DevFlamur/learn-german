@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { LanguageContext } from "../context/LanguageContext"
+import { LanguageContext } from "../../../context/LanguageContext"
 import Grid from "@material-ui/core/Grid"
 import ToggleButton from "@material-ui/lab/ToggleButton"
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup"

@@ -1,7 +1,7 @@
 import React from "react"
 
-import Layout from "../components/layout"
-import ChapterElement from "../components/chapterelement"
+import Layout from "../components/general/layout"
+import ChapterElement from "../components/general/chapterelement"
 import { globalHistory } from "@reach/router"
 import { navigate } from "gatsby"
 

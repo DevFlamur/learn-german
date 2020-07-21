@@ -1,7 +1,7 @@
 import React from "react"
 
-import Layout from "../components/layout"
-import Settings from "../components/settings"
+import Layout from "../components/general/layout"
+import Settings from "../components/general/settings"
 
 function SettingsPage() {
   return (

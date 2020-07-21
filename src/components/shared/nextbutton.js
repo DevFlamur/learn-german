@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
-import { LanguageContext } from "../context/LanguageContext"
+import { LanguageContext } from "../../context/LanguageContext"
 
-function CheckButton(props) {
+function NextButton(props) {
   const { getResourceText } = useContext(LanguageContext)
   return (
     <>
@@ -21,4 +21,4 @@ function CheckButton(props) {
   )
 }
 
-export default CheckButton
+export default NextButton

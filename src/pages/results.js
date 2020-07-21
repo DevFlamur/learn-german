@@ -1,6 +1,6 @@
 import React from "react"
-import ResultList from "../components/resultlist"
-import Layout from "../components/layout"
+import ResultList from "../components/general/resultlist"
+import Layout from "../components/general/layout"
 
 function Results() {
   return (

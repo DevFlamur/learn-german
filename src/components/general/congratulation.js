@@ -1,9 +1,9 @@
 import React, { useContext } from "react"
-import { LanguageContext } from "../context/LanguageContext"
-import CompletedImage from "../components/completedImage"
+import { LanguageContext } from "../../context/LanguageContext"
+import CompletedImage from "../shared/completedImage"
 import { Link } from "gatsby"
 
-function Congratulation(props) {
+function Congratulation() {
   const { getResourceText } = useContext(LanguageContext)
 
   return (

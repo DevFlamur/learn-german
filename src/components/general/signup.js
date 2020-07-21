@@ -9,8 +9,8 @@ import SchoolIcon from "@material-ui/icons/School"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/core/styles"
 import Container from "@material-ui/core/Container"
-import { LanguageContext } from "../context/LanguageContext"
-import fire from "../config/fire"
+import { LanguageContext } from "../../context/LanguageContext"
+import fire from "../../config/fire"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
 const useStyles = makeStyles(theme => ({
