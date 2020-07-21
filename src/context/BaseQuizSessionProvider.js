@@ -32,10 +32,10 @@ const intialState = {
 }
 
 // Create Context
-export const QuizSessionContext = createContext(intialState)
+export const BaseQuizSessionContext = createContext(intialState)
 
 // Provider
-export const QuizSessionProvider = ({ children }) => {
+export const BaseQuizSessionProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, intialState)
 
   function setCurrentQuizSettings(settings) {
@@ -90,15 +90,17 @@ export const QuizSessionProvider = ({ children }) => {
   const [displayedQuestions, setDisplayedQuestions] = useState([0])
 
   function isCorrect(answer, answerCorrect) {
-    var currentQuizSettings = getCurrentSettings()
+    var questionType = getCurrentQuestionType()
     /*
     QuestionType 1* : Der, Die, Das Module
     QuestionType 2* : Plural
     QuestionType 3* : Opposites
     QuestionType 4* : Numbers
     */
-    if (currentQuizSettings.questionType === 1) {
+    if (questionType === 1) {
       return answer === answerCorrect
+    } else if (questionType === 2 || questionType === 3) {
+      return answer.toString().toUpperCase() === answerCorrect.toUpperCase()
     }
 
     return false
@@ -166,7 +168,16 @@ export const QuizSessionProvider = ({ children }) => {
   function displayWrongText(answerCorrect) {
     const currentAnswer = state.currentAnswer
     var questionText = state.currentSettings.words[currentAnswer.index].word
-    setIsWrongText(`${getArticleText(answerCorrect)} ${questionText}`)
+
+    var questionType = getCurrentQuestionType()
+
+    if (questionType === 1) {
+      setIsWrongText(`${getArticleText(answerCorrect)} ${questionText}`)
+    } else if (questionType === 2) {
+      setIsWrongText(`${questionText}`)
+    } else if (questionType === 3) {
+      setIsWrongText(`${answerCorrect}`)
+    }
   }
 
   function checkQuestion(answer, answerCorrect) {
@@ -220,19 +231,6 @@ export const QuizSessionProvider = ({ children }) => {
       aq.length = 0
       setAnsweredQuestion(aq)
 
-      // dc.length = 0
-      // setDisplayedQuestions(dc)
-
-      // var dc = [...displayedQuestions]
-      // currentAnswer.index = dc[displayedQuestions.length - 1]
-
-      // var dcFound = [...displayedQuestions]
-      // dcFound.push(currentAnswer.index)
-      // setDisplayedQuestions(dcFound)
-      // var dc = [...displayedQuestions]
-
-      // dc[0] = currentAnswer.index
-
       //show confirmation screen
       return true
     }
@@ -242,7 +240,12 @@ export const QuizSessionProvider = ({ children }) => {
 
   function clearAnswer() {
     const currentAnswer = state.currentAnswer
-    currentAnswer.answer = null
+    var questionType = getCurrentQuestionType()
+    if (questionType === 1) {
+      currentAnswer.answer = null
+    } else if (questionType === 2 || questionType === 3) {
+      currentAnswer.answer = ""
+    }
     saveCurrentAnswers(currentAnswer)
   }
 
@@ -273,9 +276,25 @@ export const QuizSessionProvider = ({ children }) => {
     return number
   }
 
+  function getCurrentQuestionType() {
+    var currentQuizSettings = getCurrentSettings()
+    return currentQuizSettings.questionType
+  }
+
   function setAnswer(data) {
     const ca = state.currentAnswer
-    ca.answer = data.articleId
+    var questionType = getCurrentQuestionType()
+    /*
+    QuestionType 1* : Der, Die, Das Module
+    QuestionType 2* : Plural
+    QuestionType 3* : Opposites
+    QuestionType 4* : Numbers
+    */
+    if (questionType === 1) {
+      ca.answer = data.articleId
+    } else if (questionType === 2 || questionType === 3) {
+      ca.answer = data
+    }
     saveCurrentAnswers(ca)
   }
 
@@ -340,7 +359,7 @@ export const QuizSessionProvider = ({ children }) => {
   }
 
   return (
-    <QuizSessionContext.Provider
+    <BaseQuizSessionContext.Provider
       value={{
         setAnswer,
         checkQuestion,
@@ -355,9 +374,10 @@ export const QuizSessionProvider = ({ children }) => {
         deleteQuizSessionFromStorage,
         setWordListSource,
         getWordListSource,
+        getArticleText,
       }}
     >
       {children}
-    </QuizSessionContext.Provider>
+    </BaseQuizSessionContext.Provider>
   )
 }

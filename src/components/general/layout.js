@@ -1,17 +1,17 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { LanguageProvider } from "../context/LanguageContext"
-import { QuizSessionProvider } from "../context/QuizSessionContext"
+import { LanguageProvider } from "../../context/LanguageContext"
+import { BaseQuizSessionProvider } from "../../context/BaseQuizSessionProvider"
 import "./layout.css"
-import MenuItems from "../components/MenuItems"
+import MenuItems from "./MenuItems"
 
 const Layout = ({ children }) => {
   return (
     <>
       <LanguageProvider>
-        <QuizSessionProvider>
+        <BaseQuizSessionProvider>
           <MenuItems children={children} />
-        </QuizSessionProvider>
+        </BaseQuizSessionProvider>
       </LanguageProvider>
     </>
   )

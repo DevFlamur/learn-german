@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { LanguageContext } from "../context/LanguageContext"
+import { LanguageContext } from "../../context/LanguageContext"
 import { makeStyles } from "@material-ui/core/styles"
 import Chip from "@material-ui/core/Chip"
 import FaceIcon from "@material-ui/icons/Face"
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function Points(props) {
+function QuizScore(props) {
   const classes = useStyles()
 
   const { getResourceText } = useContext(LanguageContext)
@@ -41,4 +41,4 @@ function Points(props) {
   )
 }
 
-export default Points
+export default QuizScore

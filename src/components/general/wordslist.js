@@ -7,15 +7,15 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import TableCell from "@material-ui/core/TableCell"
 import { withStyles, makeStyles } from "@material-ui/core/styles"
-import { LanguageContext } from "../context/LanguageContext"
-import { QuizSessionContext } from "../context/QuizSessionContext"
+import { LanguageContext } from "../../context/LanguageContext"
+import { BaseQuizSessionContext } from "../../context/BaseQuizSessionProvider"
 import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
 import InputLabel from "@material-ui/core/InputLabel"
 
 const Wordslist = () => {
   const { getResourceText } = useContext(LanguageContext)
-  const { getWordListSource } = useContext(QuizSessionContext)
+  const { getWordListSource } = useContext(BaseQuizSessionContext)
 
   const [lng, setLanguage] = React.useState("sq")
   const useStyles = makeStyles({

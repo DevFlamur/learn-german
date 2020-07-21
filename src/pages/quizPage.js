@@ -1,27 +1,13 @@
 import React from "react"
-import ArticlesQuiz from "../components/articlesQuiz"
-import Layout from "../components/layout"
+import ArticlesQuiz from "../components/quizmodules/articles/articlesQuizModule"
+import Layout from "../components/general/layout"
 
-function QuizPage({ location }) {
-  let chapter = 0
-
-  if (typeof location.state !== "undefined" && location.state) {
-    chapter = location.state.chapter
-  }
-
-  if (typeof location.state !== "undefined" && location.state) {
-    return (
-      <Layout>
-        <ArticlesQuiz chapter={chapter} />
-      </Layout>
-    )
-  } else {
-    return (
-      <>
-        <p>Gehe zurück oder starte die App neu!</p>
-      </>
-    )
-  }
+function QuizPage() {
+  return (
+    <Layout>
+      <ArticlesQuiz />
+    </Layout>
+  )
 }
 
 export default QuizPage

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import SignIn from "../components/signin"
-import SignUp from "../components/signup"
+import SignIn from "../components/general/signin"
+import SignUp from "../components/general/signup"
 
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography"
 import clsx from "clsx"
 
 import { LanguageProvider } from "../context/LanguageContext"
-import { QuizSessionProvider } from "../context/QuizSessionContext"
+import { BaseQuizSessionProvider } from "../context/BaseQuizSessionProvider"
 
 import { ThemeProvider } from "@material-ui/core/styles"
 
@@ -97,7 +97,7 @@ function IndexPage() {
       <link rel="manifest" href="/manifest.webmanifest"></link>
       <ThemeProvider theme={theme}>
         <LanguageProvider>
-          <QuizSessionProvider>
+          <BaseQuizSessionProvider>
             <AppBar position="fixed" className={clsx(classes.appBar)}>
               <Toolbar>
                 <Typography variant="h6" noWrap>
@@ -111,7 +111,7 @@ function IndexPage() {
             ) : (
               <SignUp switchView={changeView} />
             )}
-          </QuizSessionProvider>
+          </BaseQuizSessionProvider>
         </LanguageProvider>
       </ThemeProvider>
     </>

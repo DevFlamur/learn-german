@@ -23,7 +23,7 @@ import SchoolIcon from "@material-ui/icons/School"
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"
 import InfoIcon from "@material-ui/icons/Info"
 import SettingsIcon from "@material-ui/icons/Settings"
-import { LanguageContext } from "../context/LanguageContext"
+import { LanguageContext } from "../../context/LanguageContext"
 
 const drawerWidth = 240
 

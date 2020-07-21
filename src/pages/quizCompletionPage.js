@@ -1,7 +1,7 @@
 import React from "react"
 
-import Layout from "../components/layout"
-import Congratulation from "../components/congratulation"
+import Layout from "../components/general/layout"
+import Congratulation from "../components/general/congratulation"
 
 function QuizCompletionPage() {
   return (
