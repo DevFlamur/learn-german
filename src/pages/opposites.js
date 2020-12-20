@@ -2,7 +2,7 @@ import React from "react"
 import Layout from "../components/general/layout"
 import OppositesQuizModule from "../components/quizmodules/opposites/oppositesQuizModule"
 
-function Plural() {
+function Opposites() {
   return (
     <Layout>
       <OppositesQuizModule />
@@ -10,4 +10,4 @@ function Plural() {
   )
 }
 
-export default Plural
+export default Opposites

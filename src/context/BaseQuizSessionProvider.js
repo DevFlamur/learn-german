@@ -302,7 +302,12 @@ export const BaseQuizSessionProvider = ({ children }) => {
     return state.currentSettings
   }
   function getWordsSource() {
-    return state.currentSettings.words
+    try {
+      if (state.currentSettings.words === undefined) return []
+      return state.currentSettings.words
+    } catch (error) {
+      return []
+    }
   }
 
   function getCurrentAnswer() {
@@ -317,7 +322,11 @@ export const BaseQuizSessionProvider = ({ children }) => {
   }
 
   function getCurrentWord() {
-    return state.currentSettings.words[state.currentAnswer.index]
+    try {
+      return state.currentSettings.words[state.currentAnswer.index]
+    } catch (error) {
+      return ""
+    }
   }
 
   function getQuizSessionFromStorage() {

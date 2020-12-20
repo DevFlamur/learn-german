@@ -21,7 +21,7 @@ module.exports = {
       options: {
         name: `gatsby-starter-default`,
         short_name: `starter`,
-        start_url: `/loginpage.js`,
+        start_url: `/index.js`,
         background_color: `#2083c5`,
         theme_color: `#2083c5`,
         display: `minimal-ui`,

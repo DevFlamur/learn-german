@@ -4,32 +4,31 @@ import TextField from "@material-ui/core/TextField"
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline"
 import Grid from "@material-ui/core/Grid"
 
-import Speech from "speak-tts"
 function WordInput(props) {
   const { getResourceText } = useContext(LanguageContext)
-  const speech = new Speech()
-  speech
-    .init({
-      volume: 1,
-      lang: "de-DE",
-      rate: 1,
-      pitch: 0.9,
-      voice: "Google Deutsch",
-      //splitSentences: false,
-      listeners: {},
-    })
-    .then(data => {})
-    .catch(e => {
-      console.error("An error occured while initializing : ", e)
-    })
+  // const speech = new Speech()
+  // speech
+  //   .init({
+  //     volume: 1,
+  //     lang: "de-DE",
+  //     rate: 1,
+  //     pitch: 0.9,
+  //     voice: "Google Deutsch",
+  //     //splitSentences: false,
+  //     listeners: {},
+  //   })
+  //   .then(data => {})
+  //   .catch(e => {
+  //     console.error("An error occured while initializing : ", e)
+  //   })
 
   const handleClick = () => {
-    speech
-      .speak({
-        text: props.wordInputControl.textToRead,
-      })
-      .then(() => {})
-      .catch(e => {})
+    // speech
+    //   .speak({
+    //     text: props.wordInputControl.textToRead,
+    //   })
+    //   .then(() => {})
+    //   .catch(e => {})
   }
 
   return (

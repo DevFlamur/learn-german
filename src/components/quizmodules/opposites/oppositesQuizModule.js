@@ -56,13 +56,7 @@ const OppositesQuizModule = () => {
   }
 
   return (
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `0 1.0875rem 1.45rem`,
-      }}
-    >
+    <>
       <QuizScore
         correctPoints={getCurrentAnswer().correctAnswerCount}
         wrongPoints={getCurrentAnswer().wrongAnswerCount}
@@ -83,7 +77,8 @@ const OppositesQuizModule = () => {
         {getDisplayedQuestions().length}/{getWordsSource().length}
       </p>
       <br />
-    </div>
+    </>
   )
 }
+
 export default OppositesQuizModule

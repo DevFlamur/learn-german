@@ -1,32 +1,31 @@
 import React from "react"
-import Speech from "speak-tts"
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline"
 import Grid from "@material-ui/core/Grid"
 
 function Word(props) {
-  const speech = new Speech()
-  speech
-    .init({
-      volume: 1,
-      lang: "de-DE",
-      rate: 1,
-      pitch: 0.9,
-      voice: "Google Deutsch",
-      //splitSentences: false,
-      listeners: {},
-    })
-    .then(data => {})
-    .catch(e => {
-      console.error("An error occured while initializing : ", e)
-    })
+  // const speech = new Speech()
+  // speech
+  //   .init({
+  //     volume: 1,
+  //     lang: "de-DE",
+  //     rate: 1,
+  //     pitch: 0.9,
+  //     voice: "Google Deutsch",
+  //     //splitSentences: false,
+  //     listeners: {},
+  //   })
+  //   .then(data => {})
+  //   .catch(e => {
+  //     console.error("An error occured while initializing : ", e)
+  //   })
 
   const handleClick = () => {
-    speech
-      .speak({
-        text: props.word,
-      })
-      .then(() => {})
-      .catch(e => {})
+    // speech
+    //   .speak({
+    //     text: props.word,
+    //   })
+    //   .then(() => {})
+    //   .catch(e => {})
   }
   return (
     <>
